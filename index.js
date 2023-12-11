@@ -1,6 +1,11 @@
-const redux = require('redux'); 
+const redux = require("redux"); 
 const createStore = redux.createStore;
-const combineReducers = redux.combineReducers
+const combineReducers = redux.combineReducers;
+const reduxLogger =  require("redux-logger");
+
+
+const applyMiddleware = redux.applyMiddleware ;
+const logger =   reduxLogger.createLogger() ;
 
 console.log("Hello in redux"); 
 
@@ -10,18 +15,16 @@ const BUY_ICECREAM = "BUY_ICECREAM";
 function buyCake() {
      return (
         { 
-            type: BUY_CAKE, 
+            type : BUY_CAKE, 
           
     }) }
 
 function buyIcecream () {
-    return 
-    (
+    return (
         { 
-            type: BUY_ICECREAM, 
+            type : BUY_ICECREAM, 
           
-    })
-}
+    })}
 
 
 /*  const initialState = {
@@ -64,16 +67,16 @@ const rootReducer = combineReducers({
     cake : cakeReducer ,
     icecream : icecreamReducer 
 })                   
-const store = createStore(rootReducer);
+const store = createStore(rootReducer , applyMiddleware(logger));
 console.log("Initial State", store.getState());
 const unsubscribe = store.subscribe(() => {
-     console.log("Update State", store.getState()); 
+    // console.log("Update State", store.getState()); 
     });
 store.dispatch(buyCake());
 store.dispatch(buyCake());
 store.dispatch(buyCake());
 store.dispatch(buyIcecream())
 store.dispatch(buyIcecream())
-
-
 unsubscribe();
+
+
